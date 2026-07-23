@@ -1,8 +1,8 @@
-#Python ATM System
+# Python ATM System
 
 A simple ATM simulation built with Python using Object-Oriented Programming
 
-#Features
+## Features
 -Create PIN
 -Deposit Money
 -Withdraw Money
@@ -10,7 +10,7 @@ A simple ATM simulation built with Python using Object-Oriented Programming
 -Change PIN
 -Store data using JSON
 
-#Technologies Used
+## Technologies Used
 -Python
 -JSON
 -OOP
