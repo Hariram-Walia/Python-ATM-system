@@ -10,7 +10,7 @@ A simple ATM simulation built with Python using Object-Oriented Programming
 -Change PIN
 -Store data using JSON
 
-## Technologies Used
+## Tech-Stack Used
 -Python
 -JSON
 -OOP
