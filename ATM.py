@@ -1,10 +1,13 @@
 import json
 class Atm:
+    __counter = 1
     def __init__(self):
         with open("data.json", "r") as file:
             data = json.load(file)
         self.pin = data["pin"]
-        self.balance = data["balance"]
+        self.__balance = data["balance"]
+        self.cid = Atm.__counter
+        Atm.__counter = Atm.__counter+1
         self.menu()
     def menu(self):
         while True:
@@ -33,6 +36,16 @@ class Atm:
 
             else:
                 break
+
+    def get_balance(self):
+        return self.__balance
+    def set_balance(self,change_value):
+        if type(change_value)==int:
+            self.__balance = change_value
+        else: 
+            print(" dont't be clever ")
+        self.save_data()
+
             
 
 
@@ -41,9 +54,9 @@ class Atm:
         self.pin = user_pin
         print("Thanks, your pin has been updated")
         self.save_data()
-        user_balance = int(input("Please enter the deposit amount : "))
+        user_balance = int(input("Please enter the deposit amount"))
         if user_balance > 0:
-            self.balance = user_balance
+            self.__balance = user_balance
             print("Thanks, your pin has been updated")
             self.save_data()
         else:
@@ -53,21 +66,21 @@ class Atm:
         
     
     def change_pin (self):
-        old_pin = int(input("enter your old pin : "))
+        old_pin = int(input("enter your old pin"))
         if old_pin == self.pin:
-            new_pin = int(input("enter a new pin : "))
+            new_pin = int(input("enter a new pin"))
             self.pin = new_pin
             print("pin change successful")
             self.save_data()
             
         else:
-            print("Enter the correct old pin : ")
+            print("Enter the correct old pin")
 
     def check_balance(self):
         pin_check = int(input(" Enter your ATM pin: "))
 
         if pin_check == self.pin:
-            print("Your Balance is", self.balance)
+            print("Your Balance is", self.__balance)
         else:
             print("Wrong pin, can't display balance")
 
@@ -76,8 +89,8 @@ class Atm:
         
         if pin_check == self.pin:
             withdraw_amt = int(input("Enter the amount to withdraw : "))
-            if withdraw_amt <= self.balance and withdraw_amt>0:
-                self.balance = self.balance - withdraw_amt
+            if withdraw_amt <= self.__balance and withdraw_amt>0:
+                self.__balance = self.__balance - withdraw_amt
                 print ("Withdrawl of" , withdraw_amt , "is successful ")
                 self.save_data()
             else:
@@ -90,22 +103,20 @@ class Atm:
         if pin_check == self.pin:
             dep_amount = int(input("Enter the amount you want to deposit : "))
             if dep_amount > 0:
-                self.balance = self.balance + dep_amount
+                self.__balance = self.__balance + dep_amount
                 print("deposit of" , dep_amount , "succesful")
-                print(self.balance)
+                print(self.__balance)
                 self.save_data()
         else:
             print("Wrong pin")
     def save_data(self):
         data = {
             "pin": self.pin,
-            "balance": self.balance
+            "balance": self.__balance
         }
         with open("data.json","w") as file:
             json.dump(data,file)
             
-    
-
-
 if __name__ == "__main__":
     obj = Atm()
+
